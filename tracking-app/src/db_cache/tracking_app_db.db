@@ -1,0 +1,24 @@
+{
+  "name": "tracking_app_db",
+  "id": 0,
+  "database": [
+    {
+      "name": "users",
+      "id": 0,
+      "table": {
+        "0": "password",
+        "1": "password",
+        "2": "password"
+      }
+    },
+    {
+      "name": "records",
+      "id": 1,
+      "table": {}
+    }
+  ],
+  "ids": [
+    0,
+    1
+  ]
+}
