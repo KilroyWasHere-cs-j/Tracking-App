@@ -26,7 +26,10 @@ fn main() {
 
     tracking_app_db.insert_table(users);
     tracking_app_db.insert_table(records);
-    
+
+    println!("Queue size at start: {}", queue.get_queue_size());
+
+    tracking_app_db.save();
 
     rocket::ignite()
         .mount(
@@ -36,7 +39,6 @@ fn main() {
                 routes::records::getRecords,
                 routes::test::test
             ],
-            
         )
         .launch();
 }

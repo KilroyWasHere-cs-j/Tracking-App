@@ -20,4 +20,8 @@ impl Queue {
             println!("{}", i)
         }
     }
+
+    pub fn get_queue_size(&mut self) -> usize {
+        self.queue.len()
+    }
 }
