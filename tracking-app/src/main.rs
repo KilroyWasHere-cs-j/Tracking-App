@@ -1,11 +1,10 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-mod routes;
 mod database;
+mod routes;
 
-#[macro_use] extern crate rocket;
-
-use std::fs::File;
+#[macro_use]
+extern crate rocket;
 
 fn main() {
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
@@ -25,5 +24,11 @@ fn main() {
 
     tracking_app_db.save();
 
-    rocket::ignite().mount("/", routes![routes::index::hello, routes::records::getRecords]).launch();
+    rocket::ignite()
+        .mount(
+            "/",
+            routes![routes::index::hello, routes::records::getRecords],
+        )
+        .launch();
 }
+
