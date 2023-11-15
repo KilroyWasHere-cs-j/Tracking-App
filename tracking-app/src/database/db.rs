@@ -1,8 +1,7 @@
+use super::table::Table;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
-use super::table::Table;
-
 
 /// Struct that represents a database
 /// # Arguments
@@ -15,7 +14,6 @@ use super::table::Table;
 /// use no_sql_database::database::db::Database;
 /// let mut db = Database::new(String::from("test"), 0);
 /// ```
-
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -76,23 +74,11 @@ impl Database {
     /// let mut db = Database::new(String::from("test"), 0);
     /// db.load();
     /// ```
-    pub fn load(&mut self, file_name: String){
-        match File::open("db_cache/".to_owned() + &*file_name.clone()) {
-            Ok(_) => (),
-            Err(_) => {
-                let file = File::create(format!("db_cache/{}.db", file_name)).unwrap();
-                let file = serde_json::to_writer_pretty(file, self).unwrap();
-            }
-        }
-        match serde_json::from_reader(File::open(format!("db_cache/{}.db", file_name)).unwrap()) {
-            Ok(file) => {
-                *self = file;
-            },
-            Err(_) => {
-                let file = File::create(format!("db_cache/{}.db", file_name)).unwrap();
-                let file = serde_json::to_writer_pretty(file, self).unwrap();
-            }
-        }
+    pub fn load(&mut self, file_name: String) -> std::io::Result<()> {
+        let file = File::open(file_name)?;
+        let file = serde_json::from_reader(file)?;
+        *self = file;
+        Ok(())
     }
 
     /// Gets the table with the given id.

@@ -1,12 +1,17 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
+mod daemon;
 mod database;
 mod routes;
 
 #[macro_use]
 extern crate rocket;
 
+use daemon::queue::Queue;
+
 fn main() {
+    let mut queue = daemon::queue::Queue::new();
+
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
 
     println!("Database name {} is up.", tracking_app_db.get_name());
@@ -21,14 +26,17 @@ fn main() {
 
     tracking_app_db.insert_table(users);
     tracking_app_db.insert_table(records);
-
-    tracking_app_db.save();
+    
 
     rocket::ignite()
         .mount(
             "/",
-            routes![routes::index::hello, routes::records::getRecords],
+            routes![
+                routes::index::hello,
+                routes::records::getRecords,
+                routes::test::test
+            ],
+            
         )
         .launch();
 }
-
