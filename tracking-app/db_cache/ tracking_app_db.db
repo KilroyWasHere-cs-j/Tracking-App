@@ -1,20 +1,6 @@
 {
   "name": "tracking_app_db",
   "id": 0,
-  "database": [
-    {
-      "name": "users",
-      "id": 0,
-      "table": {}
-    },
-    {
-      "name": "records",
-      "id": 1,
-      "table": {}
-    }
-  ],
-  "ids": [
-    0,
-    1
-  ]
+  "database": [],
+  "ids": []
 }

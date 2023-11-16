@@ -17,8 +17,6 @@ pub struct DB{
 
 fn main() {
 
-    daemon::summon_daemon();
-
     // Create a new database
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
 
@@ -38,9 +36,6 @@ fn main() {
     // Add tables into the database
     tracking_app_db.insert_table(users);
     tracking_app_db.insert_table(records);
-
-    // Save the database
-    tracking_app_db.save();
 
     rocket::ignite()
         .mount(
