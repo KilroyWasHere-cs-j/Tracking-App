@@ -1,4 +1,4 @@
 #[get("/")]
-pub fn hello() -> &'static str {
-    "Hello, world!"
+pub fn index() -> String {
+    format!("The config value is: {}", "")
 }

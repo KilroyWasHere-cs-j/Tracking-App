@@ -1,5 +1,5 @@
 use super::table::Table;
-use std::fs;
+use std::{env, fs};
 use std::fs::File;
 use std::io::Write;
 
@@ -59,8 +59,26 @@ impl Database {
     /// db.save();
     /// ```
     pub fn save(&mut self) {
-        let file = File::create(format!("db_cache/{}.db", self.name)).unwrap();
+        let file = File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name)).unwrap();
         let file = serde_json::to_writer_pretty(file, self).unwrap();
+    }
+
+    /// Gets the current working directory
+    /// # Arguments
+    /// * None
+    /// # Returns
+    /// * String
+    /// # Example
+    /// ```
+    /// let cwd = get_current_working_dir();
+    /// ```
+    #[allow(dead_code)]
+    fn get_current_working_dir() -> String {
+        env::current_dir()
+            .unwrap()
+            .into_os_string()
+            .into_string()
+            .unwrap()
     }
 
     /// Loads database from file
@@ -75,10 +93,21 @@ impl Database {
     /// db.load();
     /// ```
     pub fn load(&mut self, file_name: String) -> std::io::Result<()> {
-        let file = File::open(file_name)?;
-        let file = serde_json::from_reader(file)?;
-        *self = file;
-        Ok(())
+        match File::open(file_name) {
+            Ok(file) => {
+                let file = serde_json::from_reader(file)?;
+                *self = file;
+                Ok(())
+            },
+            Err(_) => {
+                fs::create_dir(Database::get_current_working_dir() + "/db_cache")?;
+                File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name))?;
+                let file = File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name))?;
+                let file = serde_json::from_reader(file)?;
+                *self = file;
+                Ok(())
+            }
+        }
     }
 
     /// Gets the table with the given id.
