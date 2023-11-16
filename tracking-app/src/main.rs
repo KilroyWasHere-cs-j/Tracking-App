@@ -3,6 +3,7 @@
 mod database;
 mod routes;
 mod structs;
+mod daemon;
 
 #[macro_use]
 extern crate rocket;
@@ -16,31 +17,39 @@ pub struct DB{
 
 fn main() {
 
+    daemon::summon_daemon();
+
+    // Create a new database
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
 
-    println!("Database name {} is up.", tracking_app_db.get_name());
+    // Load the database from the file
+    match tracking_app_db.load("tracking_app_db".to_string()){
+        Ok(_) => println!("Database loaded successfully"),
+        Err(_) => {
+            println!("Database not found, creating a new one");
+            tracking_app_db.save();
+        }
+    }
 
-    tracking_app_db.load("tracking_app_db".to_string());
-
+    // Create table for users and records
     let mut users = database::table::Table::new(String::from("users"), 0);
     let mut records = database::table::Table::new(String::from("records"), 1);
 
-    users.insert(0, String::from("password"));
-    users.insert(1, String::from("password"));
-
+    // Add tables into the database
     tracking_app_db.insert_table(users);
     tracking_app_db.insert_table(records);
 
+    // Save the database
     tracking_app_db.save();
 
     rocket::ignite()
-        .mount(z
+        .mount(
             "/",
             routes![
                 routes::index::index,
                 routes::records::getRecords,
                 routes::test::test,
-                routes::records::setRecord,
+                //routes::records::setRecord,
             ],
         )
         .manage(DB{db: Mutex::new(tracking_app_db)})

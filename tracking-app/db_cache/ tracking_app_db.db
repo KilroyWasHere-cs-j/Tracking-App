@@ -5,10 +5,7 @@
     {
       "name": "users",
       "id": 0,
-      "table": {
-        "1": "password",
-        "0": "password"
-      }
+      "table": {}
     },
     {
       "name": "records",
