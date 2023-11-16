@@ -9,6 +9,10 @@ extern crate rocket;
 use std::sync::Mutex;
 use rocket::State;
 
+pub struct DB{
+    db: Mutex<database::db::Database>
+}
+
 fn main() {
 
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
@@ -34,8 +38,10 @@ fn main() {
             routes![
                 routes::index::index,
                 routes::records::getRecords,
-                routes::test::test
+                routes::test::test,
+                routes::records::setRecord,
             ],
         )
+        .manage(DB{db: Mutex::new(tracking_app_db)})
         .launch();
 }

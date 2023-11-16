@@ -59,7 +59,7 @@ impl Database {
     /// db.save();
     /// ```
     pub fn save(&mut self) {
-        let file = File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name)).unwrap();
+        let file = File::create(format!("{} {}.db", Database::get_current_working_dir() + "/db_cache/", self.name)).unwrap();
         let file = serde_json::to_writer_pretty(file, self).unwrap();
     }
 
@@ -101,8 +101,8 @@ impl Database {
             },
             Err(_) => {
                 fs::create_dir(Database::get_current_working_dir() + "/db_cache")?;
-                File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name))?;
-                let file = File::create(format!("{} {}", Database::get_current_working_dir() + "db_cache/{}.db", self.name))?;
+                File::create(format!("{} {}.db", Database::get_current_working_dir() + "/db_cache/", self.name))?;
+                let file = File::create(format!("{} {}.db", Database::get_current_working_dir() + "/db_cache/", self.name))?;
                 let file = serde_json::from_reader(file)?;
                 *self = file;
                 Ok(())
