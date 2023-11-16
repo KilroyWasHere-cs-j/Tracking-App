@@ -2,6 +2,7 @@
 
 mod database;
 mod routes;
+mod structs;
 
 #[macro_use]
 extern crate rocket;
@@ -33,7 +34,7 @@ fn main() {
     tracking_app_db.save();
 
     rocket::ignite()
-        .mount(
+        .mount(z
             "/",
             routes![
                 routes::index::index,
