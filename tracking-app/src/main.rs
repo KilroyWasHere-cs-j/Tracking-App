@@ -59,7 +59,7 @@ fn main() {
                 routes::index::index,
                 routes::records::getRecords,
                 routes::test::test,
-                routes::records::setRecord,
+                //routes::records::setRecord,
             ],
         )
         .manage(DB{db: Mutex::new(tracking_app_db)})

@@ -24,7 +24,7 @@ pub fn getRecords(username: String, passwordhash: String, state: State<DB>) -> S
     }
 }
 
-#[post("/records/<username>/<passwordhash>/set", format = "json", data = "<record>")]
-pub fn setRecord(username: String, passwordhash: String, record: String, state: State<DB>) -> String{
-    format!("Hello, {}! Your password hash is {}. You want to set a record of type {} with data", username, passwordhash, record)
-}
+// #[post("/records/<username>/<passwordhash>/set", format = "json", data = "<record>")]
+// pub fn setRecord(username: String, passwordhash: String, record: String, state: State<DB>) -> String{
+//     format!("Hello, {}! Your password hash is {}. You want to set a record of type {} with data", username, passwordhash, record)
+// }
