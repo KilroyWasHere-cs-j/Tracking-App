@@ -2,8 +2,9 @@
 
 mod database;
 mod routes;
-mod structs;
 mod daemon;
+
+mod objects;
 
 #[macro_use]
 extern crate rocket;
@@ -33,9 +34,23 @@ fn main() {
     let mut users = database::table::Table::new(String::from("users"), 0);
     let mut records = database::table::Table::new(String::from("records"), 1);
 
+    users.insert(0, serde_json::to_string(&objects::user::User{
+        id: 0,
+        username: String::from("admin"),
+        password_hash: String::from("admin"),
+    }).unwrap());
+
+    users.insert(1, serde_json::to_string(&objects::user::User{
+        id: 1,
+        username: String::from("user"),
+        password_hash: String::from("user"),
+    }).unwrap());
+
     // Add tables into the database
     tracking_app_db.insert_table(users);
     tracking_app_db.insert_table(records);
+
+    tracking_app_db.save();
 
     rocket::ignite()
         .mount(
@@ -44,7 +59,7 @@ fn main() {
                 routes::index::index,
                 routes::records::getRecords,
                 routes::test::test,
-                //routes::records::setRecord,
+                routes::records::setRecord,
             ],
         )
         .manage(DB{db: Mutex::new(tracking_app_db)})

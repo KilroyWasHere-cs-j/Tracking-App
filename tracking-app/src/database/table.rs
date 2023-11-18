@@ -108,8 +108,14 @@ impl Table {
         self.table.get(&id)
     }
 
+    // TODO - Add regex search
     pub fn query_by_value(&self, value: String) -> Option<&String> {
-        self.table.values().find(|&v| v == &value)
+        for (key, val) in &self.table {
+            if val.contains(&value) {
+                return Some(val);
+            }
+        }
+        None
     }
 
     /// Updates a value in the table.
