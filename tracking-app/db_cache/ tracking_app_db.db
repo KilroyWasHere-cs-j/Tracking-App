@@ -1,23 +1,6 @@
 {
   "name": "tracking_app_db",
   "id": 0,
-  "database": [
-    {
-      "name": "users",
-      "id": 0,
-      "table": {
-        "0": "{\"id\":0,\"username\":\"admin\",\"password_hash\":\"admin\"}",
-        "1": "{\"id\":1,\"username\":\"user\",\"password_hash\":\"user\"}"
-      }
-    },
-    {
-      "name": "records",
-      "id": 1,
-      "table": {}
-    }
-  ],
-  "ids": [
-    0,
-    1
-  ]
+  "database": [],
+  "ids": []
 }
