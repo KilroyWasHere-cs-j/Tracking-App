@@ -1,13 +1,10 @@
-use rocket::response::content::Json;
 use rocket::State;
-use crate::database::table::Table;
 use crate::{DB, objects};
-use serde_json::json;
 
 // TODO - Add password hash checking
 // TODO - Add regex search
 #[get("/records/users/<username>")]
-pub fn getUsers(username: String, state: State<DB>) -> String{
+pub fn get_users(username: String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
     match db.get_table_mut(0){
         None => {
@@ -27,7 +24,7 @@ pub fn getUsers(username: String, state: State<DB>) -> String{
 }
 
 #[get("/records/records/<username>")]
-pub fn getRecords(username: String, state: State<DB>) -> String{
+pub fn get_records(username: String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
     match db.get_table_mut(1){
         None => {
@@ -50,7 +47,7 @@ pub fn getRecords(username: String, state: State<DB>) -> String{
 
 // TODO is any of this throws an error, it will literally break the entire server
 #[post("/records/user/create", data = "<user>")]
-pub fn createUser(user: String, state: State<DB>) -> String{
+pub fn create_user(user: String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
     match db.get_table_mut(0){
         None => {
@@ -72,6 +69,6 @@ pub fn createUser(user: String, state: State<DB>) -> String{
 }
 
 #[post("/records/record/create", data = "<record>")]
-pub fn createRecord(record: String, state: State<DB>) -> String{
+pub fn create_record(record: String, _state: State<DB>) -> String{
     format!("Created record: {}", record)
 }

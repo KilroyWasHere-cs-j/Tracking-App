@@ -110,7 +110,7 @@ impl Table {
 
     // TODO - Add regex search
     pub fn query_by_value(&self, value: String) -> Option<&String> {
-        for (key, val) in &self.table {
+        for (_key, val) in &self.table {
             if val.contains(&value) {
                 return Some(val);
             }

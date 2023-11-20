@@ -1,7 +1,6 @@
 use super::table::Table;
 use std::{env, fs};
 use std::fs::File;
-use std::io::Write;
 
 /// Struct that represents a database
 /// # Arguments
@@ -60,7 +59,7 @@ impl Database {
     /// ```
     pub fn save(&mut self) {
         let file = File::create(format!("{} {}.db", Database::get_current_working_dir() + "/db_cache/", self.name)).unwrap();
-        let file = serde_json::to_writer_pretty(file, self).unwrap();
+        let _file = serde_json::to_writer_pretty(file, self).unwrap();
     }
 
     /// Gets the current working directory
