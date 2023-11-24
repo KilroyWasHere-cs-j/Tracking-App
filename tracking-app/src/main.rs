@@ -22,7 +22,7 @@ fn not_found() -> String{
     Valid end points:
 
     Index:
-    
+
     / - Index
 
     GET:
