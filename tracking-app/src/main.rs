@@ -26,8 +26,8 @@ fn not_found() -> String{
 
     GET:
 
-    /records/users/<username> - Gets a user from the database
-    /records/records/<username> - Gets a users records for the database
+    /records/users/<username>/<passwordhash> - Gets a user from the database
+    /records/records/<username>/<passwordhash> - Gets a users records for the database
 
     POST:
 
