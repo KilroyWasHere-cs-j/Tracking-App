@@ -3,8 +3,8 @@ use crate::{DB, objects};
 
 // TODO - Add password hash checking
 // TODO - Add regex search
-#[get("/records/users/<username>")]
-pub fn get_users(username: String, state: State<DB>) -> String{
+#[get("/records/users/<username>/<passwordhash>")]
+pub fn get_users(username: String, passwordhash:String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
     match db.get_table_mut(0){
         None => {
@@ -23,8 +23,8 @@ pub fn get_users(username: String, state: State<DB>) -> String{
     }
 }
 
-#[get("/records/records/<username>")]
-pub fn get_records(username: String, state: State<DB>) -> String{
+#[get("/records/records/<username>/<passwordhash>")]
+pub fn get_records(username: String, passwordhash:String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
     match db.get_table_mut(1){
         None => {
