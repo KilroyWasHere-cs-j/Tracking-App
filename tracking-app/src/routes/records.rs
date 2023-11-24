@@ -1,5 +1,6 @@
 use rocket::State;
-use crate::{DB, objects};
+use crate::DB;
+use crate::objects;
 
 // TODO - Add password hash checking
 // TODO - Add regex search
@@ -46,6 +47,13 @@ pub fn get_records(username: String, passwordhash:String, state: State<DB>) -> S
 // curl -X POST http://localhost:8000/records/user/create -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
 
 // TODO is any of this throws an error, it will literally break the entire server
+#[post("/records/user/create", data = "<user>")]
+pub fn create_user(user: objects::user::User, state: State<DB>) -> String{
+    let mut db = state.db.lock().unwrap();
+    println!("Creating user: {:?}", user);
+    format!("Created user: {:?}", user)
+}
+
 // #[post("/records/user/create", data = "<user>")]
 // pub fn create_user(user: String, state: State<DB>) -> String{
 //     let mut db = state.db.lock().unwrap();
