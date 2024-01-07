@@ -16,6 +16,5 @@ https://tracking-app-docker.onrender.com
 ###Post Requests
 
 ```
-https://tracking-app-backend.onrender.com/user/create
-                                 '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
+- /records/user/create    -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
 ```
