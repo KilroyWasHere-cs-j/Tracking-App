@@ -17,7 +17,7 @@ fn internal_error() -> &'static str {
 }
 
 #[catch(404)]
-fn not_found() -> String{
+fn not_found() -> String {
     let message = r#"
     Valid end points:
 
@@ -40,17 +40,16 @@ fn not_found() -> String{
     format!("{}", message)
 }
 
-pub struct DB{
-    db: Mutex<database::db::Database>
+pub struct DB {
+    db: Mutex<database::db::Database>,
 }
 
 fn main() {
-
     // Create a new database
     let mut tracking_app_db = database::db::Database::new(String::from("tracking_app_db"), 0);
 
     // Load the database from the file
-    match tracking_app_db.load("tracking_app_db".to_string()){
+    match tracking_app_db.load("tracking_app_db".to_string()) {
         Ok(_) => println!("Database loaded successfully"),
         Err(_) => {
             println!("Database not found, creating a new one");
@@ -82,7 +81,9 @@ fn main() {
                 routes::dev::db_info,
             ],
         )
-        .manage(DB{db: Mutex::new(tracking_app_db)})
+        .manage(DB {
+            db: Mutex::new(tracking_app_db),
+        })
         .register(catchers![not_found, internal_error])
         .launch();
 }
