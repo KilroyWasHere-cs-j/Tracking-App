@@ -56,6 +56,28 @@ impl Table {
         self.table.insert(id, value);
     }
 
+
+    /// Gets the latest id in the table.
+    /// # Arguments
+    /// * `()` - Takes no arguments.
+    /// # Returns
+    /// * `u64` - Returns the latest id in the table.
+    /// # Example
+    /// ```
+    /// use no_sql_database::database::table::Table;
+    /// let table = Table::new(String::from("test"), 0);
+    /// let latest_id = table.get_latest_id();
+    /// ```
+    pub fn get_latest_id(&self) -> u64 {
+        let mut latest_id = 0;
+        for (key, _value) in &self.table {
+            if key > &latest_id {
+                latest_id = *key;
+            }
+        }
+        latest_id
+    }
+
     /// Gets a value from the table.
     /// # Arguments
     /// * `id` - The id of the value.
