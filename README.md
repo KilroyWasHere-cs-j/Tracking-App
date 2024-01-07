@@ -30,11 +30,11 @@ curl -X POST https://tracking-app-backend.onrender.com/records/user/create -d '{
 #### Query for user
 
 ```
-curl [http://localhost:8000](https://tracking-app-backend.onrender.com/)https://tracking-app-backend.onrender.com/records/users/John/sdapoios
+curl https://tracking-app-backend.onrender.com/records/users/John/sdapoios
 ```
 
 #### Query for record
 
 ```
-curl http://localhost:8000/records/records/<username>/<passwordhash>
+curl https://tracking-app-backend.onrender.com/records/record/John/sdapoios
 ```
