@@ -2,18 +2,18 @@
 This is the repo to hold the tracking apps backend. This is a joint effort with DylanPatel401.
 
 
-##End-point
+## End-point
 
 [https://tracking-app-docker.onrender.com](https://tracking-app-backend.onrender.com/)
 
-###Get Requests
+### Get Requests
 
 ```
 - /records/records/<username>/<passwordhash>
 - /records/users/<username>/<passwordhash>
 ```
 
-###Post Requests
+### Post Requests
 
 ```
 - /records/user/create    -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
