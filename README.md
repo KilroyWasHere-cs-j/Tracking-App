@@ -26,3 +26,15 @@ This is the repo to hold the tracking apps backend. This is a joint effort with 
 ```
 curl -X POST https://tracking-app-backend.onrender.com/records/user/create -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
 ```
+
+#### Query for user
+
+```
+curl [http://localhost:8000](https://tracking-app-backend.onrender.com/)https://tracking-app-backend.onrender.com/records/users/John/sdapoios
+```
+
+#### Query for record
+
+```
+curl http://localhost:8000/records/records/<username>/<passwordhash>
+```
