@@ -67,7 +67,17 @@ pub fn create_user(user: User, state: State<DB>) -> String{
     }
 }
 
+// curl https://tracking-app-backend.onrender.com/records/record/John/sdapoios
 #[post("/records/record/create", data = "<record>")]
 pub fn create_record(record: Task, _state: State<DB>) -> String{
-    format!("Created record: {:?}", record)
+    let mut db = _state.db.lock().unwrap();
+    match db.get_table_mut(1){
+        None => {
+            format!("{}", "NULL")
+        }
+        Some(table) => {
+            table.insert(table.get_latest_id(), serde_json::to_string(&record).unwrap());
+            format!("{}", "Success")
+        }
+    }
 }
