@@ -36,5 +36,5 @@ curl https://tracking-app-backend.onrender.com/records/users/John/sdapoios
 #### Query for record
 
 ```
-curl https://tracking-app-backend.onrender.com/records/John/sdapoios
+curl https://tracking-app-backend.onrender.com/records/record/John/sdapoios
 ```
