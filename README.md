@@ -36,5 +36,5 @@ curl https://tracking-app-backend.onrender.com/records/users/John/sdapoios
 #### Query for record
 
 ```
-curl http://localhost:8000/records/records/<username>/<passwordhash>
+curl https://tracking-app-backend.onrender.com/records/<username>/<passwordhash>
 ```
