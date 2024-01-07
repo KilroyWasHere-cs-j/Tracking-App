@@ -1,6 +1,7 @@
 use rocket::State;
 use crate::DB;
 use crate::objects;
+use crate::objects::task::Task;
 use crate::objects::user::User;
 
 // TODO - Add password hash checking
@@ -27,6 +28,8 @@ pub fn get_users(username: String, passwordhash:String, state: State<DB>) -> Str
     }
 }
 
+// curl http://localhost:8000/records/records/<username>/<passwordhash>
+
 #[get("/records/records/<username>/<passwordhash>")]
 pub fn get_records(username: String, passwordhash:String, state: State<DB>) -> String{
     let mut db = state.db.lock().unwrap();
@@ -48,9 +51,7 @@ pub fn get_records(username: String, passwordhash:String, state: State<DB>) -> S
 }
 // curl -X POST http://localhost:8000/records/user/create -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
 
-// http://localhost:8000/records/users/John/sdapoios
-
-// curl -X POST https://tracking-app-backend.onrender.com/records/user/create -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
+// curl http://localhost:8000/records/users/John/sdapoios
 
 #[post("/records/user/create", data = "<user>")]
 pub fn create_user(user: User, state: State<DB>) -> String{
@@ -67,6 +68,6 @@ pub fn create_user(user: User, state: State<DB>) -> String{
 }
 
 #[post("/records/record/create", data = "<record>")]
-pub fn create_record(record: String, _state: State<DB>) -> String{
-    format!("Created record: {}", record)
+pub fn create_record(record: Task, _state: State<DB>) -> String{
+    format!("Created record: {:?}", record)
 }
