@@ -46,6 +46,8 @@ pub fn get_records(username: String, passwordhash:String, state: State<DB>) -> S
 }
 // curl -X POST http://localhost:8000/records/user/create -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
 
+// curl -X POST https://tracking-app-backend.onrender.com/ -d '{"id": 0, "username" : "John", "password_hash" : "sdapoios"}'
+
 #[post("/records/user/create", data = "<user>")]
 pub fn create_user(user: User, state: State<DB>) -> String{
     format!("Created user: {:?}", user)
