@@ -79,6 +79,7 @@ fn main() {
                 routes::records::create_record,
                 routes::dev::print_db,
                 routes::dev::db_info,
+                routes::dev::print_db
             ],
         )
         .manage(DB {
