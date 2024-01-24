@@ -77,7 +77,6 @@ fn main() {
                 routes::test::test,
                 routes::records::create_user,
                 routes::records::create_record,
-                routes::dev::print_db,
                 routes::dev::db_info,
                 routes::dev::print_db
             ],
